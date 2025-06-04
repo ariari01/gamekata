@@ -41,28 +41,19 @@ class GameTest {
         assertIllegalArgument("121");
     }
 
+    private void generateQuestion(String questionNumber) {
+        game.question = questionNumber;
+    }
     @Test
     void returnSolvedResultIfMatchedNumber() {
-        game.question = "123";
-        GuessResult result = game.guess("123");
-
-        boolean solved = true;
-        int strikes = 3;
-        int balls = 0;
-
-        assertMatchedNumber(result, solved, strikes, balls);
+        generateQuestion("123");
+        assertMatchedNumber(game.guess("123"), true, 3, 0);
     }
 
     @Test
     void returnSolvedResultIfUnMatchedNumber() {
-        game.question = "123";
-        GuessResult result = game.guess("456");
-
-        boolean solved = false;
-        int strikes = 0;
-        int balls = 0;
-
-        assertMatchedNumber(result, solved, strikes, balls);
+        generateQuestion("123");
+        assertMatchedNumber(game.guess("456"), false, 0, 0);
     }
 
     private void assertMatchedNumber(GuessResult result, boolean solved, int strikes, int balls) {
